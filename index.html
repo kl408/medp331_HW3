@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>MEDP 331 Homework 3</title>
+        <style type="text/css">
+            canvas {border: 10px outset rgb(38, 64, 151);}
+        </style>
+    </head>
+    <body>
+        <h1 style="color: rgb(38, 64, 151); font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; margin-left: 300px;">How did this robot destroy the city?</h1>
+        <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; margin-left: 300px;">Psst...He was a little too fast.</p>
+        <canvas id="tutorial" width="1200" height="600"></canvas>
+        <script type="application/javascript">
+            var background = new Image();
+            var imgTag = new Image();
+            var canvas = document.getElementById('tutorial');
+            var ctx = canvas.getContext("2d");
+            var x = canvas.width;
+            var y = canvas.height;
+
+            background.src = "citybackground.png";
+            imgTag.onload = animate;
+            imgTag.src = "legretrievedrobotsprite.png";
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);  // clear canvas
+                ctx.drawImage(background, 0, 0, 1200,600);          // draw background
+
+                //console.log(x);
+                x-= 4;
+                if (x > -125){
+                    requestAnimationFrame(animate);       
+                }
+
+                ctx.drawImage(imgTag, x, y-154, 152,154);          // draw image at current position
+
+                if(x == -124){   // loop
+                    x = canvas.width;
+                }
+            }
+            canvas.addEventListener('mousedown', function(e) {
+                imgTag.src="legretrievedrobotjump.png";
+                y -= 80;
+                //requestAnimationFrame(animate);
+            });
+            canvas.addEventListener('mouseup', function(e) {
+                imgTag.src="legretrievedrobotsprite.png";
+                y += 80;
+                //requestAnimationFrame(animate);
+            });
+        </script>
+    </body>
+</html>
